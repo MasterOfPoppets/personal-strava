@@ -1,0 +1,20 @@
+doctype
+html(ng-app='StravaDVApp' ng-controller='StravaDVCtrl')
+  head
+    title Strava Data Visualisation App
+    base(href='/')
+    link(rel='stylesheet', href='/stylesheets/_bower.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    script(src='/javascripts/_bower.js')
+    script(src='/javascripts/Chart.min.js')
+    script(src='/javascripts/stravadv.min.js')
+  body
+    input(type='text' ng-model='activityId')
+    button(ng-click='click()') Get HR data
+    p Rest: {{ results.rest }}%
+    p Zone 1 (): {{ results.z1 }}%
+    p Zone 2 (): {{ results.z2 }}%
+    p Zone 3 (): {{ results.z3 }}%
+    p Zone 4 (): {{ results.z4 }}%
+    p Zone 5 (): {{ results.z5 }}%
+    canvas(id='myChart' width='400' height='400')

@@ -1,0 +1,25 @@
+{
+  "name": "personal-strava",
+  "version": "0.0.1",
+  "description": "Personal strava data visualisation project",
+  "private": "true",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.8.7",
+    "strava-v3": "^1.5.2",
+    "jade": "*",
+    "nib": "*",
+    "stylus": "*"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-bower-concat": "^0.4.0",
+    "grunt-contrib-uglify": "^0.6.0",
+    "grunt-contrib-watch": "^0.6.1"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "personal-strava",
+  "version": "0.0.1",
+  "authors": [
+    "MasterOfPoppets <gurrkin@googlemail.com>"
+  ],
+  "description": "Strava Data Visualisation App",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.3.2",
+    "chartjs": "~0.2.0"
+  }
+}
