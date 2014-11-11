@@ -54,7 +54,19 @@
         else {
           console.log(err);
         }
-        res.end();
+      }
+    );
+  };
+  
+  exports.activities = function (req, res) {
+    strava.athlete.listActivities(
+      {},
+      function (err, payload) {
+        if (!err) {
+          res.json(payload);
+        } else {
+          console.log(err);
+        }
       }
     );
   };

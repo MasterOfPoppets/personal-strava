@@ -1,0 +1,6 @@
+doctype
+.col-sm-6
+  ul
+    li(ng-repeat='activity in model.activities')
+      a(ui-sref='activities.hr({ id: \'{{ activity.id }}\' })') {{ activity.name }}
+.col-sm-6(ui-view)

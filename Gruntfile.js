@@ -9,8 +9,12 @@
           dest: 'public/javascripts/_bower.js',
           cssDest: 'public/stylesheets/_bower.css',
           exclude: [
-            'chartjs' 
-          ]
+            'chartjs',
+            'jquery'
+          ],
+          mainFiles: {
+            'bootstrap': 'dist/css/bootstrap.css' 
+          }
         }
       },
       uglify: { 

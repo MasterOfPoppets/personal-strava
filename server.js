@@ -34,13 +34,16 @@
     next();
   });
   
-  
-  
   // General
   app.get('/', router.index);
   
+  // Partials
+  app.get('/partials/:section', router.loadPartial);
+  app.get('/partials/activities/hr/:id', router.loadHR);
+  
   // Strava API test
-  app.get('/hr/:activityId', strava.activityHR);
+  app.get('/activities', strava.activities);
+  app.get('/activities/hr/:activityId', strava.activityHR);
   
   // Misc.
   app.use(express.static(__dirname + '/public'));
