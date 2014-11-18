@@ -42,8 +42,8 @@
   app.get('/partials/activities/hr/:id', router.loadHR);
   
   // Strava API test
-  app.get('/activities', strava.activities);
-  app.get('/activities/hr/:activityId', strava.activityHR);
+  app.get('/act/:page', strava.activities);
+  app.get('/act/hr/:activityId', strava.activityHR);
   
   // Misc.
   app.use(express.static(__dirname + '/public'));

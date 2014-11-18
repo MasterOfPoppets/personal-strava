@@ -10,7 +10,7 @@
           activities: []
         };
         
-        $http.get('/activities').success(function (data) {
+        $http.get('/act/1').success(function (data) {
           $scope.model.activities = data;
         });
       }
@@ -22,7 +22,7 @@
         $scope.results = {};
         $scope.myDoughnut = null;
     
-        $http.get('/activities/hr/' + $stateParams.id).success(function (data) {
+        $http.get('/act/hr/' + $stateParams.id).success(function (data) {
           if (Object.keys($scope.results).length === 0) {
             var ctx = document.getElementById('myChart').getContext('2d');
 

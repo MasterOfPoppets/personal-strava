@@ -60,7 +60,9 @@
   
   exports.activities = function (req, res) {
     strava.athlete.listActivities(
-      {},
+      {
+        'page': req.params.page
+      },
       function (err, payload) {
         if (!err) {
           res.json(payload);
