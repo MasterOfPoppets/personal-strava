@@ -4,29 +4,27 @@
   var strava = require('strava-v3'),
       db = require('../db');
   
-  function heartrateZonify(payload, callback) {
-    var restZone = 0, zone1 = 0, zone2 = 0, zone3 = 0, zone4 = 0, zone5 = 0,
-        i = 0, j = 0,
-        data;
+  function getHRStreamFromPayload(payload, next, callback) {
+    var data;
     
-    for (; j < payload.length; j++) {
-      if (payload[j].type === 'heartrate') {
-        data = payload[j].data;
+    for (var i = 0; i < payload.length; i++) {
+      if (payload[i].type === 'heartrate') {
+        return next(payload[i].data, callback);
       }
     }
     
-    if (!data) {
-      callback('No heartrate data available', {});
-      return;
-    }
-    
+    return callback('No heartrate data available', {});
+  }
+  
+  function heartrateZonify(data, callback) {
     db.User.findOne({name: 'Gareth'}, function (err, user) {
-      if (err) {
-        callback(err, {});
-        return;
+      if (err || user === null) {
+        return callback(err || 'Unable to find user', {});
       }
       
-      for (; i < data.length; i++) {
+      var restZone = 0, zone1 = 0, zone2 = 0, zone3 = 0, zone4 = 0, zone5 = 0;
+      
+      for (var i = 0; i < data.length; i++) {
         var datapoint = data[i];
         if (datapoint >= user.hrZones.z5) {
           zone5++;
@@ -43,35 +41,72 @@
         }
       }
 
-      callback('', {
-        rest: ((restZone / data.length) * 100).toFixed(2),
-        z1: ((zone1 / data.length) * 100).toFixed(2),
-        z2: ((zone2 / data.length) * 100).toFixed(2),
-        z3: ((zone3 / data.length) * 100).toFixed(2),
-        z4: ((zone4 / data.length) * 100).toFixed(2),
-        z5: ((zone5 / data.length) * 100).toFixed(2)
+      return callback('', {
+        userId: user._id,
+        hrZonePercentages: {
+          rest: ((restZone / data.length) * 100).toFixed(2),
+          z1: ((zone1 / data.length) * 100).toFixed(2),
+          z2: ((zone2 / data.length) * 100).toFixed(2),
+          z3: ((zone3 / data.length) * 100).toFixed(2),
+          z4: ((zone4 / data.length) * 100).toFixed(2),
+          z5: ((zone5 / data.length) * 100).toFixed(2)
+        }
       });
     });
   }
   
-  exports.activityHR = function (req, res) {
+  function getActivityHRZonePercentages(activityId, callback) {
     strava.streams.activity(
       {
-        'id': req.params.activityId,
+        'id': activityId,
         'types': 'heartrate'
-      }, 
+      },
       function (err, payload) {
-        if (!err) {
-          heartrateZonify(payload, function (err, data) {
-            if (err) {
-              console.error(err);
-            } else {
-              res.json(data);
-            }
-          });
+        if (err) {
+          callback(err, {});
+          return;
         }
-        else {
-          console.error(err);
+        
+        getHRStreamFromPayload(payload, heartrateZonify, function (err, data) {
+          if (err) {
+            console.error(err);
+          } else {
+            db.Activity.create(
+              { 
+                userId: data.userId,
+                activityId : activityId,
+                hrZonePercentages: data.hrZonePercentages
+              },
+              function (err, activity) {
+                console.log(activity);
+              }
+            );
+            callback('', data.hrZonePercentages);
+          }
+        });
+      }
+    );
+  }
+  
+  exports.activityHR = function (req, res) {
+    db.Activity.findOne(
+      {
+        activityId: req.params.activityId
+      }, 
+      function (err, activity) {
+        if (activity) {
+          res.json(activity.hrZonePercentages);
+        } else {
+          getActivityHRZonePercentages(
+            req.params.activityId, 
+            function (err, hrZonePercentages) {
+              if (err) {
+                console.error(err);
+              } else {
+                res.json(hrZonePercentages); 
+              }
+            }
+          ); 
         }
       }
     );

@@ -5,6 +5,7 @@
       app = express(),
       router = require('./routes/router'),
       strava = require('./routes/strava'),
+      mongoose = require('mongoose'),
       stylus = require('stylus'),
       nib = require('nib'),
       port = process.env.PORT || 3000;
@@ -49,5 +50,12 @@
   app.use(express.static(__dirname + '/public'));
   app.use('*', router.index);
     
-  app.listen(port);
+  // Establish MongoDB connection
+  mongoose.connect('mongodb://localhost/strava');
+  var conn = mongoose.connection;
+  conn.on('error', console.error.bind(console, 'connection error:'));
+  conn.once('open', function callback () {
+    var db = require('./db');
+    app.listen(port);
+  });
 }());
