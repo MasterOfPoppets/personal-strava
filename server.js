@@ -38,12 +38,6 @@
   // General
   app.get('/', router.index);
   
-  function serverGreeting(name) {
-    return "Hello " + name;
-  }
-  
-  module.exports.serverGreeting = serverGreeting;
-  
   // Partials
   app.get('/partials/:section', router.loadPartial);
   app.get('/partials/activities/hr/:id', router.loadHR);
@@ -57,13 +51,11 @@
   app.use('*', router.index);
     
   // Establish MongoDB connection
-  // mongoose.connect('mongodb://localhost/strava');
-  // var conn = mongoose.connection;
-  // conn.on('error', console.error.bind(console, 'connection error:'));
-  // conn.once('open', function callback () {
-    // var db = require('./db');
-    // app.listen(port);
-  // });
-  
-  app.listen(port, process.env.IP);
+  mongoose.connect('mongodb://localhost/strava');
+  var conn = mongoose.connection;
+  conn.on('error', console.error.bind(console, 'connection error:'));
+  conn.once('open', function callback () {
+    var db = require('./db');
+    app.listen(port);
+  });
 }());
