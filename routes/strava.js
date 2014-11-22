@@ -3,6 +3,14 @@
      
   var strava = require('strava-v3'),
       db = require('../db');
+      
+  exports.testMocha = function (name) {
+    return "Hello " + name;
+  }
+  
+  exports.testMocha2 = function (name, surname) {
+    return this.testMocha(name) + ' ' + surname;
+  }
   
   function getHRStreamFromPayload(payload, next, callback) {
     var data;
