@@ -28,7 +28,15 @@ describe('#calculateHRZonePercentages', function () {
   it('should correctly calculate percentages for each zone', function () {
     var hr = new HeartRate(hrZones);
     
-    hr.calculateHRZonePercentages([6, 0, 1, 1, 1, 2, 0]).should.deep.equal({
+    hr.calculateHRZonePercentages({
+      total: 5,
+      rest: 0,
+      z1: 1,
+      z2: 1,
+      z3: 1,
+      z4: 2,
+      z5: 0
+    }).should.deep.equal({
       rest: 0,
       z1: 20,
       z2: 20,
