@@ -62,27 +62,23 @@
         'types': 'heartrate'
       },
       function (err, payload) {
-        if (err) {
-          callback(err, {});
-          return;
-        }
+        if (err) return callback(err, {});
         
         getHRStreamFromPayload(payload, heartrateZonify, function (err, data) {
-          if (err) {
-            console.error(err);
-          } else {
-            db.Activity.create(
-              { 
-                userId: data.userId,
-                activityId : activityId,
-                hrZonePercentages: data.hrZonePercentages
-              },
-              function (err, activity) {
-                console.log(activity);
-              }
-            );
-            callback('', data.hrZonePercentages);
-          }
+          if (err) return callback(err, {});
+          
+          db.Activity.create(
+            { 
+              userId: data.userId,
+              activityId : activityId,
+              hrZonePercentages: data.hrZonePercentages
+            },
+            function (err, activity) {
+              console.log(activity);
+            }
+          );
+          
+          return callback('', data.hrZonePercentages);
         });
       }
     );
