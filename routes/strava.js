@@ -2,14 +2,11 @@
   'use strict';
      
   var strava = require('strava-v3'),
-      db = require('../lib/mongo/db');
-      
-  exports.testMocha = function (name) {
-    return "Hello " + name;
-  };
+      db = require('../lib/mongo/db'),
+      https = require('https');
   
-  exports.testMocha2 = function (name, surname) {
-    return this.testMocha(name) + ' ' + surname;
+  exports.login = function (req, res) {
+    res.end(strava.oauth.getRequestAccessURL({}));
   };
   
   function getHRStreamFromPayload(payload, next, callback) {

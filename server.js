@@ -43,6 +43,7 @@
   app.get('/partials/activities/hr/:id', router.loadHR);
   
   // Strava API test
+  app.get('/ConnectWithStrava', strava.login);
   app.get('/act/:page', strava.activities);
   app.get('/act/hr/:activityId', strava.activityHR);
   
