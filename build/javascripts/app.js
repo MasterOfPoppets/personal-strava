@@ -16,9 +16,9 @@
       })
       .state('activities.hr', {
         url: '/hr/{id}',
-        templateUrl: function ($stateParams) {
+        templateUrl: ['$stateParams', function ($stateParams) {
           return 'partials/activities/hr/' + $stateParams.id;
-        },
+        }],
         controller: 'ActivitiesHRCtrl'
       })
       .state('authorise', {
@@ -27,8 +27,14 @@
         controller: 'AuthoriseCtrl'
       })
       .state('exchange', {
-        url: '/exchange',
-        templateUrl: 'partials/exchange'
+        url: '/exchange?state&code',
+        templateUrl: 'partials/exchange',
+        controller: 'ExchangeCtrl',
+        resolve: {
+          code: ['$stateParams', function ($stateParams) {
+            return $stateParams.code;
+          }]
+        }
       });
     }
   ]);

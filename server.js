@@ -44,6 +44,7 @@
   
   // Strava API test
   app.get('/ConnectWithStrava', strava.login);
+  app.get('/ExchangeWithStrava', strava.exchange);
   app.get('/act/:page', strava.activities);
   app.get('/act/hr/:activityId', strava.activityHR);
   

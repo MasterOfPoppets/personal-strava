@@ -9,6 +9,14 @@
     res.end(strava.oauth.getRequestAccessURL({}));
   };
   
+  exports.exchange = function (req, res) {
+    console.log(req.query.code);
+    strava.oauth.getToken(req.query.code, function (err, payload) {
+      console.log(payload);
+      res.end();
+    });
+  };
+  
   function getHRStreamFromPayload(payload, next, callback) {
     var data;
     

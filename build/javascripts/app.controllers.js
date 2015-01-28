@@ -14,7 +14,16 @@
           $window.location.href = data;
         });
       };
-  }])
+    }
+  ])
+  
+  .controller('ExchangeCtrl', [
+    '$http', 'code', 
+    function ($http, code) {
+      console.log(code);
+      $http.get('/ExchangeWithStrava?code=' + code);
+    }
+  ])
   
   .controller('ActivitiesCtrl', [
     '$scope', '$http', 
