@@ -55,7 +55,6 @@
   var conn = mongoose.connection;
   conn.on('error', console.error.bind(console, 'connection error:'));
   conn.once('open', function callback () {
-    var db = require('./db');
     app.listen(port);
   });
 }());

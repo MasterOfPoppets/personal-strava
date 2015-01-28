@@ -9,7 +9,6 @@
           dest: 'public/javascripts/_bower.js',
           cssDest: 'public/stylesheets/_bower.css',
           exclude: [
-            'chartjs',
             'jquery'
           ],
           mainFiles: {
