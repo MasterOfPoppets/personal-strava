@@ -3,7 +3,8 @@
 
   var express = require('express'),
       app = express(),
-      router = require('./routes/router'),
+      index = require('./routes/index'),
+      partials = require('./routes/partials'),
       strava = require('./lib/strava'),
       mongoose = require('mongoose'),
       stylus = require('stylus'),
@@ -36,11 +37,10 @@
   });
   
   // General
-  app.get('/', router.index);
+  app.use('/', index);
   
   // Partials
-  app.get('/partials/:section', router.loadPartial);
-  app.get('/partials/activities/hr/:id', router.loadHR);
+  app.use('/partials', partials);
   
   // Strava API test
   app.get('/ConnectWithStrava', strava.login);
@@ -48,7 +48,7 @@
   
   // Misc.
   app.use(express.static(__dirname + '/public'));
-  app.use('*', router.index);
+  app.use('*', index);
     
   // Establish MongoDB connection
   mongoose.connect('mongodb://localhost/strava');

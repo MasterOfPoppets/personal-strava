@@ -1,7 +1,7 @@
 (function () {
   'use strict';
   
-  angular.module('gh.strava', ['gh.strava.controllers', 'ui.router'])
+  angular.module('gh.strava', ['gh.strava.controllers', 'gh.strava.oauth', 'ui.router'])
   
   .config([
     '$stateProvider', '$urlRouterProvider', '$locationProvider',
