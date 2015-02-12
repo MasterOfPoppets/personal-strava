@@ -28,13 +28,17 @@
       })
       .state('exchange', {
         url: '/exchange?state&code',
-        templateUrl: 'partials/exchange',
         controller: 'ExchangeCtrl',
         resolve: {
           code: ['$stateParams', function ($stateParams) {
             return $stateParams.code;
           }]
         }
+      })
+      .state('welcome', {
+        url: '/welcome',
+        templateUrl: 'partials/welcome',
+        controller: 'WelcomeCtrl'
       });
     }
   ]);

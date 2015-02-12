@@ -5,7 +5,7 @@
       app = express(),
       index = require('./routes/index'),
       partials = require('./routes/partials'),
-      strava = require('./lib/strava'),
+      oauth = require('./routes/strava/oauth'),
       mongoose = require('mongoose'),
       stylus = require('stylus'),
       nib = require('nib'),
@@ -42,9 +42,8 @@
   // Partials
   app.use('/partials', partials);
   
-  // Strava API test
-  app.get('/ConnectWithStrava', strava.login);
-  app.get('/ExchangeWithStrava', strava.exchange);
+  // Strava API
+  app.use('/oauth', oauth);
   
   // Misc.
   app.use(express.static(__dirname + '/public'));
