@@ -4,7 +4,7 @@
   var express = require('express'),
       app = express(),
       router = require('./routes/router'),
-      strava = require('./routes/strava'),
+      strava = require('./lib/strava'),
       mongoose = require('mongoose'),
       stylus = require('stylus'),
       nib = require('nib'),
@@ -45,8 +45,6 @@
   // Strava API test
   app.get('/ConnectWithStrava', strava.login);
   app.get('/ExchangeWithStrava', strava.exchange);
-  app.get('/act/:page', strava.activities);
-  app.get('/act/hr/:activityId', strava.activityHR);
   
   // Misc.
   app.use(express.static(__dirname + '/public'));
