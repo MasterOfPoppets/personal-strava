@@ -1,7 +1,9 @@
 (function () {
   'use strict';
   
-  angular.module('gh.strava', ['gh.strava.controllers', 'gh.strava.oauth', 'ui.router'])
+  angular.module('gh.strava', [
+    'ui.router', 'gh.strava.user', 'gh.strava.oauth', 'gh.strava.dashboard'
+  ])
   
   .config([
     '$stateProvider', '$urlRouterProvider', '$locationProvider',
@@ -9,18 +11,6 @@
       $urlRouterProvider.otherwise('/');
       $locationProvider.html5Mode(true);
       $stateProvider
-      .state('activities', {
-        url: '/activities',
-        templateUrl: 'partials/activities',
-        controller: 'ActivitiesCtrl'
-      })
-      .state('activities.hr', {
-        url: '/hr/{id}',
-        templateUrl: ['$stateParams', function ($stateParams) {
-          return 'partials/activities/hr/' + $stateParams.id;
-        }],
-        controller: 'ActivitiesHRCtrl'
-      })
       .state('authorise', {
         url: '/',
         templateUrl: 'partials/authorise',
@@ -35,10 +25,31 @@
           }]
         }
       })
-      .state('welcome', {
-        url: '/welcome',
-        templateUrl: 'partials/welcome',
-        controller: 'WelcomeCtrl'
+      .state('dashboard', {
+        templateUrl: 'partials/dashboard',
+        controller: 'DashboardCtrl'
+      })
+      .state('dashboard.userConfig', {
+        url: '/dashboard',
+        views: {
+          'menu': {
+            templateUrl: 'partials/menu'
+          },
+          'content': {
+            templateUrl: 'partials/userConfig'
+          }
+        }
+      })
+      .state('dashboard.activities', {
+        url: '/dashboard',
+        views: {
+          'menu': {
+            templateUrl: 'partials/menu'
+          },
+          'content': {
+            templateUrl: 'partials/activities'
+          }
+        }
       });
     }
   ]);

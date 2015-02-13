@@ -14,37 +14,16 @@
     }
   ])
   
-  .factory('Test', function () {
-    var model = {
-      avatar: '' 
-    };
-    
-    return {
-      avatar: function () {
-        return model.avatar; 
-      },
-      
-      setAvatar: function (avatar) {
-        model.avatar = avatar; 
-      }
-    };
-  })
-  
   .controller('ExchangeCtrl', [
-    '$scope', '$http', 'code', 'Test', '$location',
-    function ($scope, $http, code, Test, $location) {
+    '$scope', '$http', 'code', 'UserFactory', '$state',
+    function ($scope, $http, code, UserFactory, $state) {
       $http.get('/oauth/exchange?code=' + code).success(function (data) {
-        Test.setAvatar(data.athlete.profile);
-        $location.path('/welcome').search('');
+        UserFactory.setAvatar(data.athlete.profile);
+        $state.go('dashboard.userConfig', {
+          location: true,
+          inherit: false
+        });
       });
-    }
-  ])
-  
-  .controller('WelcomeCtrl', [
-    '$scope', 'Test',
-    function ($scope, Test) {
-      $scope.avatar = Test.avatar();
-      console.log('in welcome ctrl');
     }
   ]);  
 })();
