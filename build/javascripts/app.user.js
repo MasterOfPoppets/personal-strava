@@ -5,10 +5,12 @@
   
   .factory('UserFactory', function () {
     var user = {
-      avatar: '' 
+      avatar: null 
     };
     
     return {
+      User: user,
+      
       avatar: function () {
         return user.avatar; 
       },

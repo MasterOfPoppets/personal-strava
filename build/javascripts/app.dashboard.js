@@ -6,7 +6,7 @@
   .controller('DashboardCtrl', [
     '$scope', 'UserFactory',
     function ($scope, UserFactory) {
-      $scope.avatar = UserFactory.avatar();
+      $scope.User = UserFactory.User;
     }
   ]);  
 })();

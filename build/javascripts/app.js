@@ -26,6 +26,7 @@
         }
       })
       .state('dashboard', {
+        abstract: true,
         templateUrl: 'partials/dashboard',
         controller: 'DashboardCtrl'
       })
