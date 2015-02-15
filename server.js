@@ -3,9 +3,9 @@
 
   var express = require('express'),
       app = express(),
-      index = require('./routes/index'),
-      partials = require('./routes/partials'),
-      oauth = require('./routes/strava/oauth'),
+      index = require('./server/routes/index'),
+      partials = require('./server/routes/partials'),
+      oauth = require('./server/routes/strava/oauth'),
       mongoose = require('mongoose'),
       stylus = require('stylus'),
       nib = require('nib'),
@@ -20,7 +20,7 @@
   }
     
   // Config
-  app.set('views', __dirname + '/views');
+  app.set('views', __dirname + '/public/views');
   app.set('view engine', 'jade');
   app.use(stylus.middleware(
     {
