@@ -18,7 +18,7 @@
     '$scope', '$http', 'code', 'UserFactory', '$state',
     function ($scope, $http, code, UserFactory, $state) {
       $http.get('/oauth/exchange?code=' + code).success(function (data) {
-        UserFactory.setAvatar(data.athlete.profile);
+        UserFactory.setUser(data);
         $state.go('dashboard.userConfig', {
           location: true,
           inherit: false

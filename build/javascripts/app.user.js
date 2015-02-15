@@ -5,18 +5,16 @@
   
   .factory('UserFactory', function () {
     var user = {
-      avatar: null 
+      accessToken: null,
+      athlete: {}
     };
     
     return {
       User: user,
       
-      avatar: function () {
-        return user.avatar; 
-      },
-      
-      setAvatar: function (avatar) {
-        user.avatar = avatar; 
+      setUser: function (data) {
+        user.accessToken = data.accessToken;
+        user.athlete = data.athlete;
       }
     };
   });  
