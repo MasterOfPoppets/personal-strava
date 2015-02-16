@@ -24,10 +24,25 @@
     );
   };
   
-  User.prototype.findUser = function (accessToken, success, fail) {
+  User.prototype.findUserByAccessToken = function (accessToken, success, fail) {
     db.User.findOne(
       {
         accessToken: accessToken
+      }, 
+      function (err, user) {
+        if (err) {
+          fail(err);
+        } else {
+          success(user);
+        }
+      }
+    );
+  };
+  
+  User.prototype.findUserById = function (id, success, fail) {
+    db.User.findOne(
+      {
+        _id: id
       }, 
       function (err, user) {
         if (err) {

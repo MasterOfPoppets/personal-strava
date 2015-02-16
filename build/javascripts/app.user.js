@@ -17,5 +17,25 @@
         user.athlete = data.athlete;
       }
     };
-  });  
+  })
+  
+  .controller('UserConfigCtrl', ['$scope', '$http', function ($scope, $http) {
+    $scope.model = {
+      hrzones: {
+        z1: null
+      }
+    };
+    
+    $scope.updateUser = function () {
+      var httpPostObject = {
+        method: 'POST',
+        url: '/user/updateUser',
+        data: $scope.model
+      };
+
+      $http(httpPostObject).success(function (data) {
+        console.log(data);
+      });
+    };
+  }]);  
 })();

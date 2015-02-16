@@ -43,19 +43,38 @@ describe('User', function () {
     });
   });
   
-  describe('findUser', function () {
+  describe('findUserByAccessToken', function () {
     it('retrieves User by accessToken', function (done) {
-      User.findUser(testUser.accessToken, function (user) {
+      User.findUserByAccessToken(testUser.accessToken, function (user) {
         user.name.should.equal(testUser.name);
         done();
       });
     });
     
     it('retrieves no User by unmatched accessToken', function (done) {
-      User.findUser('unmatched_access_token', function (user) {
+      User.findUserByAccessToken('unmatched_access_token', function (user) {
         should.not.exist(user);
         done();
       });
+    });
+  });
+  
+  describe('findUserById', function () {
+    it('retrieves User by id', function (done) {
+      User.findUserById(testUser._id, function (user) {
+        user.name.should.equal(testUser.name);
+        done();
+      });
+    });
+  });
+  
+  describe('registerUser', function () {
+    it('create new User if user does not exist in database', function () {
+      
+    });
+    
+    it('respond with a neat User object', function () {
+      
     });
   });
   

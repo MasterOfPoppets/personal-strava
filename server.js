@@ -6,6 +6,7 @@
       index = require('./server/routes/index'),
       partials = require('./server/routes/partials/index'),
       oauth = require('./server/routes/oauth/index'),
+      user = require('./server/routes/user/index'),
       model = require('./server/model/index'),
       stylus = require('stylus'),
       nib = require('nib'),
@@ -44,6 +45,7 @@
   
   // Strava API
   app.use('/oauth', oauth);
+  app.use('/user', user);
   
   // Misc.
   app.use(express.static(__dirname + '/public'));

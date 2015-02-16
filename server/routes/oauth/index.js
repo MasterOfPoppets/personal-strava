@@ -14,7 +14,9 @@
   router.get('/exchange', function (req, res) {
     strava.oauth.getToken(req.query.code, function (err, payload) {
       
-      User.findUser(payload);      
+      User.findUserByAccessToken(payload.access_token, function (user) {
+      
+      });      
       
       res.json(payload);
       res.end();

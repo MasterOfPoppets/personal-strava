@@ -37,7 +37,8 @@
             templateUrl: 'partials/menu'
           },
           'content': {
-            templateUrl: 'partials/userConfig'
+            templateUrl: 'partials/userConfig',
+            controller: 'UserConfigCtrl'
           }
         }
       })
