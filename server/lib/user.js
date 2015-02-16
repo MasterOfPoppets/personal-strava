@@ -38,4 +38,22 @@
       }
     );
   };
+  
+  User.prototype.updateUser = function (accessToken, hrZones, success, fail) {
+    db.User.findOneAndUpdate(
+      {
+        accessToken: accessToken 
+      },
+      {
+        hrZones: hrZones
+      },
+      function (err, user) {
+        if (err) {
+          fail(err);
+        } else {
+          success(user); 
+        }
+      }
+    );
+  };
 }());
