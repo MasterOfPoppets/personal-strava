@@ -1,5 +1,4 @@
 var chai = require('chai'),
-    sinon = require('sinon'),
     model = require('../server/model/index'),
     User = require('../server/lib/user'),
     should = chai.should();
@@ -76,26 +75,18 @@ describe('User', function () {
           }
         };
     
-    before(function () {
-      spy = sinon.spy(User, 'createUser');
-    });
-    
     it('find User in database and return summary', function (done) {
+      // register with testUserJson and test expected output
       User.registerUser(testUserJson, function (user) {
-        spy.called.should.be.false;
         done();
       });
     });
     
     it('creates new User in database and return summary', function (done) {
+      // register with newUserJson and test expected output
       User.registerUser(newUserJson, function (user) {
-        spy.called.should.be.true;
         done();
       });
-    });
-    
-    after(function () {
-      spy.restore();
     });
   });
   
