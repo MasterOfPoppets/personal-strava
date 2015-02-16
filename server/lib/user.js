@@ -1,34 +1,40 @@
 (function () {
   'use strict';
   
-  var db = require('../model/user');
+  var db = require('../model/index');
   
   module.exports = new User();
   
   function User() {}
   
-  User.prototype.createUser = function (stravaUserPayload) {
+  User.prototype.createUser = function (stravaUserJson, success, fail) {
     db.User.create(
       {
-        accessToken: stravaUserPayload.access_token,
-        name: stravaUserPayload.athlete.name,
-        profile: stravaUserPayload.athlete.profile
+        accessToken: stravaUserJson.access_token,
+        name: stravaUserJson.athlete.name,
+        profile: stravaUserJson.athlete.profile
       },
       function (err, user) {
-        console.log(user); 
+        if (err) {
+          fail(err);
+        } else {
+          success(user); 
+        }
       }
     );
   };
   
-  User.prototype.findUser = function (stravaUserPayload) {
+  User.prototype.findUser = function (accessToken, success, fail) {
     db.User.findOne(
       {
-        accessToken: stravaUserPayload.access_token
+        accessToken: accessToken
       }, 
       function (err, user) {
-        if (err) console.log(err);
-        else if (user === null) this.createUser(stravaUserPayload);
-        else console.log('Using already created user!');
+        if (err) {
+          fail(err);
+        } else {
+          success(user);
+        }
       }
     );
   };

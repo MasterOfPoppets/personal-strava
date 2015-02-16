@@ -6,7 +6,7 @@
       index = require('./server/routes/index'),
       partials = require('./server/routes/partials/index'),
       oauth = require('./server/routes/oauth/index'),
-      mongoose = require('mongoose'),
+      model = require('./server/model/index'),
       stylus = require('stylus'),
       nib = require('nib'),
       port = process.env.PORT || 3000;
@@ -49,11 +49,7 @@
   app.use(express.static(__dirname + '/public'));
   app.use('*', index);
     
-  // Establish MongoDB connection
-  mongoose.connect('mongodb://localhost/strava');
-  var conn = mongoose.connection;
-  conn.on('error', console.error.bind(console, 'connection error:'));
-  conn.once('open', function callback () {
-    app.listen(port);
-  });
+  // Start the server!
+  model.connect('mongodb://localhost/strava');
+  app.listen(port);
 }());
