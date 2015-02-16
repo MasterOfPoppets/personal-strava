@@ -1,10 +1,17 @@
 var chai = require('chai'),
+    sinon = require('sinon'),
     model = require('../server/model/index'),
     User = require('../server/lib/user'),
     should = chai.should();
 
 describe('User', function () {
-  var testUser;
+  var testUserJson = {
+        access_token: 'test_access_token',
+        athlete: {
+          name: 'Testy McTest',
+          profile: 'https://test_image_url'
+        }
+      };
 
   before(function (done) {
     model.connect('mongodb://localhost/strava_test');
@@ -25,19 +32,11 @@ describe('User', function () {
   });
   
   describe('createUser', function () {
-    var stravaUserJson = {
-      access_token: 'test_access_token',
-      athlete: {
-        name: 'Testy McTest',
-        profile: 'https://test_image_url'
-      }
-    };
-    
-    it('creates User from strava api payload', function (done) {
-      User.createUser(stravaUserJson, function (user) {
-        user.accessToken.should.equal(stravaUserJson.access_token);
-        user.name.should.equal(stravaUserJson.athlete.name);
-        user.profile.should.equal(stravaUserJson.athlete.profile);
+   it('creates User from strava api payload', function (done) {
+      User.createUser(testUserJson, function (user) {
+        user.accessToken.should.equal(testUserJson.access_token);
+        user.name.should.equal(testUserJson.athlete.name);
+        user.profile.should.equal(testUserJson.athlete.profile);
         done();
       });
     });
@@ -69,12 +68,34 @@ describe('User', function () {
   });
   
   describe('registerUser', function () {
-    it('create new User if user does not exist in database', function () {
-      
+    var newUserJson = {
+          access_token: 'new_access_token',
+          athlete: {
+            name: 'Zaphod Beeblebrox',
+            profile: 'https://test_image_url'
+          }
+        };
+    
+    before(function () {
+      spy = sinon.spy(User, 'createUser');
     });
     
-    it('respond with a neat User object', function () {
-      
+    it('find User in database and return summary', function (done) {
+      User.registerUser(testUserJson, function (user) {
+        spy.called.should.be.false;
+        done();
+      });
+    });
+    
+    it('creates new User in database and return summary', function (done) {
+      User.registerUser(newUserJson, function (user) {
+        spy.called.should.be.true;
+        done();
+      });
+    });
+    
+    after(function () {
+      spy.restore();
     });
   });
   

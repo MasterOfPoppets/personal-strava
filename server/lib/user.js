@@ -3,7 +3,7 @@
   
   var db = require('../model/index');
   
-  module.exports = new User();
+  module.exports = exports = new User();
   
   function User() {}
   
@@ -52,6 +52,22 @@
         }
       }
     );
+  };
+  
+  User.prototype.registerUser = function (stravaUserJson, success, fail) {
+    var myUser;
+    
+    this.findUserByAccessToken(stravaUserJson.access_token, function (user) {
+      if (user === null) {
+        this.createUser(stravaUserJson, function (user) {
+          myUser = user; 
+        }); 
+      } else {
+        myUser = user; 
+      }
+    }.bind(this));
+    
+    success(myUser);
   };
   
   User.prototype.updateUser = function (accessToken, hrZones, success, fail) {
