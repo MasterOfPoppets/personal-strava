@@ -7,11 +7,21 @@
   
   function User() {}
   
+  function summarise(user) {
+    return {
+      _id: user._id,
+      name: user.name,
+      profile: user.profile,
+      hrZonesSet: user.hrZones === null
+    };
+  }
+  
   User.prototype.createUser = function (stravaUserJson, callback) {
     db.User.create(
       {
         accessToken: stravaUserJson.access_token,
-        name: stravaUserJson.athlete.name,
+        name: stravaUserJson.athlete.firstname + ' ' +
+          stravaUserJson.athlete.lastname,
         profile: stravaUserJson.athlete.profile
       },
       callback
@@ -44,7 +54,7 @@
       if (err) {
         callback(err, null);
       } else {
-        callback(null, this.summarise(result));
+        callback(null, summarise(result));
       }
     }.bind(this);
     
@@ -61,15 +71,6 @@
         }
       }.bind(this)
     );
-  };
-  
-  User.prototype.summarise = function (user) {
-    return {
-      _id: user._id,
-      name: user.name,
-      profile: user.profile,
-      hrZonesSet: false
-    };
   };
   
   User.prototype.updateUser = function (accessToken, hrZones, callback) {

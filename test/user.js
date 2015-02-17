@@ -7,7 +7,8 @@ describe('User', function () {
   var testUserJson = {
         access_token: 'test_access_token',
         athlete: {
-          name: 'Testy McTest',
+          firstname: 'Testy',
+          lastname: 'McTest',
           profile: 'https://test_image_url'
         }
       };
@@ -35,7 +36,9 @@ describe('User', function () {
    it('creates User from strava api payload', function (done) {
       User.createUser(testUserJson, function (err, result) {
         result.accessToken.should.equal(testUserJson.access_token);
-        result.name.should.equal(testUserJson.athlete.name);
+        result.name.should.equal(
+          testUserJson.athlete.firstname + ' ' + testUserJson.athlete.lastname
+        );
         result.profile.should.equal(testUserJson.athlete.profile);
         done();
       });
@@ -71,7 +74,8 @@ describe('User', function () {
     var newUserJson = {
           access_token: 'new_access_token',
           athlete: {
-            name: 'Zaphod Beeblebrox',
+            firstname: 'Zaphod',
+            lastname: 'Beeblebrox',
             profile: 'https://test_image_url'
           }
         };
@@ -88,7 +92,9 @@ describe('User', function () {
     it('creates new User in database and return summary', function (done) {
       // register with newUserJson and test expected output
       User.registerUser(newUserJson, function (err, result) {
-        result.name.should.equal(newUserJson.athlete.name);
+        result.name.should.equal(
+          newUserJson.athlete.firstname + ' ' + newUserJson.athlete.lastname
+        );
         result.profile.should.equal(newUserJson.athlete.profile);
         result.should.include.keys('hrZonesSet');
         done();

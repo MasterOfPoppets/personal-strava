@@ -18,8 +18,7 @@
         if (err) {
           console.log(err);
         } else {
-          // Here, I want to get a summary object
-          res.json(payload);
+          res.json(result);
         }
         res.end();
       });

@@ -4,17 +4,14 @@
   angular.module('gh.strava.user', [])
   
   .factory('UserFactory', function () {
-    var user = {
-      accessToken: null,
-      athlete: {}
-    };
+    var user = {};
     
     return {
       User: user,
       
       setUser: function (data) {
-        user.accessToken = data.accessToken;
-        user.athlete = data.athlete;
+        user.name = data.name;
+        user.profile = data.profile;
       }
     };
   })
