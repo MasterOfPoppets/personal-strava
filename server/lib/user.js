@@ -7,70 +7,55 @@
   
   function User() {}
   
-  User.prototype.createUser = function (stravaUserJson, success, fail) {
+  User.prototype.createUser = function (stravaUserJson, callback) {
     db.User.create(
       {
         accessToken: stravaUserJson.access_token,
         name: stravaUserJson.athlete.name,
         profile: stravaUserJson.athlete.profile
       },
-      function (err, user) {
-        if (err) {
-          fail(err);
-        } else {
-          success(user); 
-        }
-      }
+      callback
     );
   };
   
-  User.prototype.findUserByAccessToken = function (accessToken, success, fail) {
+  User.prototype.findUserByAccessToken = function (accessToken, callback) {
     db.User.findOne(
       {
         accessToken: accessToken
       }, 
-      function (err, user) {
-        if (err) {
-          fail(err);
-        } else {
-          success(user);
-        }
-      }
+      callback
     );
   };
   
-  User.prototype.findUserById = function (id, success, fail) {
+  User.prototype.findUserById = function (id, callback) {
     db.User.findOne(
       {
         _id: id
       }, 
-      function (err, user) {
-        if (err) {
-          fail(err);
-        } else {
-          success(user);
-        }
-      }
+      callback
     );
   };
   
-  User.prototype.registerUser = function (stravaUserJson, success, fail) {
-    var myUser;
-    
-    this.findUserByAccessToken(stravaUserJson.access_token, function (user) {
-      if (user === null) {
-        this.createUser(stravaUserJson, function (user) {
-          myUser = user; 
-        }); 
-      } else {
-        myUser = user; 
-      }
-    }.bind(this));
-    
-    success(myUser);
+  // Hunt for the user based on input json. If one is found in the database
+  // just return that, otherwise its time to go and create a new entry for 
+  // the user in the database, returning it afterwards.
+  User.prototype.registerUser = function (stravaUserJson, callback) {
+    this.findUserByAccessToken(
+      stravaUserJson.access_token, 
+      function (err, result) {
+        if (err) callback(err, null);
+        else {
+          if (result === null) {
+            this.createUser(stravaUserJson, callback);
+          } else {
+            callback(null, result); 
+          }
+        }
+      }.bind(this)
+    );
   };
   
-  User.prototype.updateUser = function (accessToken, hrZones, success, fail) {
+  User.prototype.updateUser = function (accessToken, hrZones, callback) {
     db.User.findOneAndUpdate(
       {
         accessToken: accessToken 
@@ -78,13 +63,7 @@
       {
         hrZones: hrZones
       },
-      function (err, user) {
-        if (err) {
-          fail(err);
-        } else {
-          success(user); 
-        }
-      }
+      callback
     );
   };
 }());
