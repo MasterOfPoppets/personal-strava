@@ -80,6 +80,7 @@ describe('User', function () {
       // register with testUserJson and test expected output
       User.registerUser(testUserJson, function (err, result) {
         result._id.toString().should.equal(testUser._id.toString());
+        result.should.include.keys('hrZonesSet');
         done();
       });
     });
@@ -89,6 +90,7 @@ describe('User', function () {
       User.registerUser(newUserJson, function (err, result) {
         result.name.should.equal(newUserJson.athlete.name);
         result.profile.should.equal(newUserJson.athlete.profile);
+        result.should.include.keys('hrZonesSet');
         done();
       });
     });

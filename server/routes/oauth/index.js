@@ -14,12 +14,15 @@
   router.get('/exchange', function (req, res) {
     strava.oauth.getToken(req.query.code, function (err, payload) {
       
-      User.findUserByAccessToken(payload.access_token, function (user) {
-      
-      });      
-      
-      res.json(payload);
-      res.end();
+      User.registerUser(payload, function (err, result) {
+        if (err) {
+          console.log(err);
+        } else {
+          // Here, I want to get a summary object
+          res.json(payload);
+        }
+        res.end();
+      });
     });
   });
   
