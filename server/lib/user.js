@@ -37,15 +37,6 @@
     );
   };
   
-  User.prototype.findUserById = function (id, callback) {
-    db.User.findOne(
-      {
-        _id: id
-      }, 
-      callback
-    );
-  };
-  
   // Hunt for the user based on input json. If one is found in the database
   // just return that, otherwise its time to go and create a new entry for 
   // the user in the database, returning it afterwards.
@@ -73,10 +64,11 @@
     );
   };
   
-  User.prototype.updateUser = function (accessToken, hrZones, callback) {
+  User.prototype.updateUser = function (id, hrZones, callback) {
+    console.log('updating user');
     db.User.findOneAndUpdate(
       {
-        accessToken: accessToken 
+        _id: id 
       },
       {
         hrZones: hrZones

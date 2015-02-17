@@ -3,16 +3,20 @@
      
   var express = require('express'),
       router = express.Router(),
+      bodyParser = require('body-parser'),
       User = require('../../lib/user');
   
-  router.use(function (req, res, next) {
-    console.log('testing route middleware');
-    next('this is a test');
-  });
-  
-  router.post('/updateUser', function (req, res, message) {
-    console.log(message);
-    res.end();
+  router.post('/:userId/updateUser', bodyParser.json(), function (req, res) {
+    User.updateUser(
+      req.params.userId, req.body.hrzones, 
+      function (err, result) {
+        if (err) console.log(err);
+        else {
+          console.log(result);
+        }
+        res.end();
+      }
+    );
   });
   
   module.exports = router;

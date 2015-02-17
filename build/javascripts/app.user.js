@@ -10,29 +10,29 @@
       User: user,
       
       setUser: function (data) {
+        user._id = data._id;
         user.name = data.name;
         user.profile = data.profile;
       }
     };
   })
   
-  .controller('UserConfigCtrl', ['$scope', '$http', function ($scope, $http) {
-    $scope.model = {
-      hrzones: {
-        z1: null
-      }
-    };
-    
-    $scope.updateUser = function () {
-      var httpPostObject = {
-        method: 'POST',
-        url: '/user/updateUser',
-        data: $scope.model
-      };
+  .controller('UserConfigCtrl', [
+    '$scope', '$http', 'UserFactory', 
+    function ($scope, $http, UserFactory) {
+      $scope.model = {};
+      
+      $scope.updateUser = function () {
+        var httpPostObject = {
+          method: 'POST',
+          url: '/user/' + UserFactory.User._id + '/updateUser',
+          data: $scope.model
+        };
 
-      $http(httpPostObject).success(function (data) {
-        console.log(data);
-      });
-    };
-  }]);  
+        $http(httpPostObject).success(function (data) {
+          console.log(data);
+        });
+      };
+    }
+  ]);  
 })();

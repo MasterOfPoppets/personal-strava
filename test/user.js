@@ -61,15 +61,6 @@ describe('User', function () {
     });
   });
   
-  describe('findUserById', function () {
-    it('retrieves User by id', function (done) {
-      User.findUserById(testUser._id, function (err, result) {
-        result.name.should.equal(testUser.name);
-        done();
-      });
-    });
-  });
-  
   describe('registerUser', function () {
     var newUserJson = {
           access_token: 'new_access_token',
@@ -112,7 +103,7 @@ describe('User', function () {
     };
     
     it('updates the User with heart rate zones', function (done) {
-      User.updateUser(testUser.accessToken, hrZones, function (err, result) {
+      User.updateUser(testUser._id, hrZones, function (err, result) {
         result.hrZones.should.have.deep.property('z1', 100);
         result.hrZones.should.have.deep.property('z2', 120);
         result.hrZones.should.have.deep.property('z3', 140);
