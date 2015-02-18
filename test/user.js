@@ -100,12 +100,14 @@ describe('User', function () {
     };
     
     it('updates the User with heart rate zones', function (done) {
+      testUser.hrZonesSet.should.be.false;
       User.updateUser(testUser._id, hrZones, function (err, result) {
-        result.hrZones.should.have.deep.property('z1', 100);
-        result.hrZones.should.have.deep.property('z2', 120);
-        result.hrZones.should.have.deep.property('z3', 140);
-        result.hrZones.should.have.deep.property('z4', 160);
-        result.hrZones.should.have.deep.property('z5', 180);
+        result.hrZones.should.have.deep.property('z1', hrZones.z1);
+        result.hrZones.should.have.deep.property('z2', hrZones.z2);
+        result.hrZones.should.have.deep.property('z3', hrZones.z3);
+        result.hrZones.should.have.deep.property('z4', hrZones.z4);
+        result.hrZones.should.have.deep.property('z5', hrZones.z5);
+        result.hrZonesSet.should.be.true;
       });
       done();
     });
