@@ -12,7 +12,8 @@
       _id: user._id,
       name: user.name,
       profile: user.profile,
-      hrZones: user.hrZones
+      hrZones: user.hrZones,
+      hrZonesSet: user.hrZonesSet
     };
   }
   
@@ -71,7 +72,8 @@
         _id: id 
       },
       {
-        hrZones: hrZones
+        hrZones: hrZones,
+        hrZonesSet: true
       },
       callback
     );
