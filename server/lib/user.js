@@ -12,7 +12,7 @@
       _id: user._id,
       name: user.name,
       profile: user.profile,
-      hrZonesSet: user.hrZones === null
+      hrZones: user.hrZones
     };
   }
   

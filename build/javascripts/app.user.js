@@ -10,6 +10,7 @@
       User: user,
       
       setUser: function (data) {
+        console.log(data);
         user._id = data._id;
         user.name = data.name;
         user.profile = data.profile;
