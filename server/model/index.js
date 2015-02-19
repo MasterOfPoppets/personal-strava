@@ -2,7 +2,8 @@
   'use strict';
 
   var mongoose = require('mongoose'),
-      User = require('./user').User;
+      User = require('./user').User,
+      Segment = require('./segment').Segment;
   
   exports.connect = function (db) {
     // Establish MongoDB connection
@@ -16,4 +17,5 @@
   };
   
   exports.User = User;
+  exports.Segment = Segment;
 }());

@@ -19,10 +19,18 @@
     function ($scope, $http, code, UserFactory, $state) {
       $http.get('/oauth/exchange?code=' + code).success(function (data) {
         UserFactory.setUser(data);
-        $state.go('dashboard.userConfig', {
-          location: true,
-          inherit: false
-        });
+        
+        if (data.hrZonesSet) {
+          $state.go('dashboard.activities', {
+            location: true,
+            inherit: false
+          });
+        } else {
+          $state.go('dashboard.userConfig', {
+            location: true,
+            inherit: false
+          });
+        }
       });
     }
   ]);  

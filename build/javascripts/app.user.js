@@ -10,10 +10,7 @@
       User: user,
       
       setUser: function (data) {
-        console.log(data);
-        user._id = data._id;
-        user.name = data.name;
-        user.profile = data.profile;
+        for (var key in data) user[key] = data[key];
       }
     };
   })
@@ -21,7 +18,9 @@
   .controller('UserConfigCtrl', [
     '$scope', '$http', 'UserFactory', 
     function ($scope, $http, UserFactory) {
-      $scope.model = {};
+      $scope.model = {
+        hrzones: UserFactory.User.hrZones
+      };
       
       $scope.updateUser = function () {
         var httpPostObject = {

@@ -2,7 +2,8 @@
   'use strict';
   
   angular.module('gh.strava', [
-    'ui.router', 'gh.strava.user', 'gh.strava.oauth', 'gh.strava.dashboard'
+    'ui.router', 'gh.strava.user', 'gh.strava.oauth', 'gh.strava.dashboard',
+    'gh.strava.activities', 'gh.strava.segments'
   ])
   
   .config([
@@ -49,7 +50,32 @@
             templateUrl: 'partials/menu'
           },
           'content': {
-            templateUrl: 'partials/activities'
+            templateUrl: 'partials/activities',
+            controller: 'ActivitiesCtrl'
+          }
+        }
+      })
+      .state('dashboard.activity', {
+        url: '/activities/:id',
+        views: {
+          'menu': {
+            templateUrl: 'partials/menu'
+          },
+          'content': {
+            templateUrl: 'partials/activity',
+            controller: 'ActivityCtrl'
+          }
+        }
+      })
+      .state('dashboard.segments', {
+        url: '/dashboard',
+        views: {
+          'menu': {
+            templateUrl: 'partials/menu'
+          },
+          'content': {
+            templateUrl: 'partials/segments',
+            controller: 'SegmentsCtrl'
           }
         }
       });

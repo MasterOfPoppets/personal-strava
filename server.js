@@ -4,9 +4,6 @@
   var express = require('express'),
       app = express(),
       index = require('./server/routes/index'),
-      partials = require('./server/routes/partials/index'),
-      oauth = require('./server/routes/oauth/index'),
-      user = require('./server/routes/user/index'),
       model = require('./server/model/index'),
       stylus = require('stylus'),
       nib = require('nib'),
@@ -41,11 +38,12 @@
   app.use('/', index);
   
   // Partials
-  app.use('/partials', partials);
+  app.use('/partials', index.partials);
   
   // Strava API
-  app.use('/oauth', oauth);
-  app.use('/user', user);
+  app.use('/oauth', index.oauth);
+  app.use('/user', index.user);
+  app.use('/activities', index.activities);
   
   // Misc.
   app.use(express.static(__dirname + '/public'));

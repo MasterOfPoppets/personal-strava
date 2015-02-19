@@ -1,1 +1,3 @@
 h1 Activities
+input(ng-model='searchText.name')
+a(ng-repeat='activity in model.activities | filter:searchText | limitTo: 20' ui-sref='dashboard.activity({ id: \'{{ activity.id }}\' })') {{ activity.name }}
