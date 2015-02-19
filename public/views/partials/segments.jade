@@ -1,1 +1,3 @@
 h1 Segments
+input(ng-model='searchText.name')
+p(ng-repeat='segment in model.segments | filter:searchText') {{ segment.name }}

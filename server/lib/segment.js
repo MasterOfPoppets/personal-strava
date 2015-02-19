@@ -9,9 +9,6 @@
   
   Segment.prototype.createSegments = function (activity, callback) {
     // As a test, extract the segments from the activity and add to db
-    
-    console.log('Checking ' + activity.segment_efforts.length + ' segments');
-    
     var segments = [];
     
     for (var i = 0; i < activity.segment_efforts.length; i++) {
@@ -26,8 +23,10 @@
       );
     }
     
-    console.log(segments);
-    
     db.Segment.create(segments, callback);
+  };
+  
+  Segment.prototype.getSegments = function (callback) {
+    db.Segment.find({}, callback);
   };
 }());

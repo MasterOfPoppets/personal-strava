@@ -44,6 +44,7 @@
   app.use('/oauth', index.oauth);
   app.use('/user', index.user);
   app.use('/activities', index.activities);
+  app.use('/segments', index.segments);
   
   // Misc.
   app.use(express.static(__dirname + '/public'));

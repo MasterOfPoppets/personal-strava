@@ -6,7 +6,8 @@
       partials = require('./partials/index'),
       oauth = require('./oauth/index'),
       user = require('./user/index'),
-      activities = require('./activities/index');
+      activities = require('./activities/index'),
+      segments = require('./segments/index');
   
   router.get('/', function (req, res) {
     res.render('index');
@@ -20,4 +21,5 @@
   module.exports.oauth = oauth;
   module.exports.user = user;
   module.exports.activities = activities;
+  module.exports.segments = segments;
 })();

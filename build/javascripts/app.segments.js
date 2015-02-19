@@ -9,7 +9,7 @@
       $scope.model = {};
 
       $http.get('/segments').success(function (data) {
-        $scope.model.activities = data;
+        $scope.model.segments = data;
       });
     }
   ]);
