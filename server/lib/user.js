@@ -21,8 +21,8 @@
     db.User.create(
       {
         accessToken: stravaUserJson.access_token,
-        name: stravaUserJson.athlete.firstname + ' ' +
-          stravaUserJson.athlete.lastname,
+        firstname: stravaUserJson.athlete.firstname,
+        lastname: stravaUserJson.athlete.lastname,
         profile: stravaUserJson.athlete.profile
       },
       callback
@@ -66,7 +66,6 @@
   };
   
   User.prototype.updateUser = function (id, hrZones, callback) {
-    console.log('updating user');
     db.User.findOneAndUpdate(
       {
         _id: id 

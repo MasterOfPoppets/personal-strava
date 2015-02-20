@@ -18,6 +18,7 @@
   .controller('UserConfigCtrl', [
     '$scope', '$http', 'UserFactory', 
     function ($scope, $http, UserFactory) {
+      $scope.User = UserFactory.User;
       $scope.model = {
         hrzones: UserFactory.User.hrZones
       };

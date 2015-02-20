@@ -1,6 +1,13 @@
+doctype
 .container
   .row
     .col-lg-4.col-sm-4
-      div(ui-view='menu')
+      img.img-circle(ng-src='{{ User.profile }}')
+      h3
+        a(ui-sref='dashboard.userConfig') User Config
+      h3 
+        a(ui-sref='dashboard.activities') Activities
+      h3 
+        a(ui-sref='dashboard.segments') Segments
     .col-lg-8.col-sm-8
-      div(ui-view='content')
+      div(ui-view)

@@ -2,7 +2,8 @@ var mongoose = require('mongoose');
   
 var userSchema = mongoose.Schema({
   accessToken: String,
-  name: String,
+  firstname: String,
+  lastname: String,
   profile: String,
   hrZones: {
     z1: Number,
@@ -12,6 +13,10 @@ var userSchema = mongoose.Schema({
     z5: Number
   },
   hrZonesSet: { type: Boolean, default: false }
+});
+
+userSchema.virtual('name').get(function () {
+  return this.firstname + ' ' + this.lastname;
 });
 
 exports.User = mongoose.model('User', userSchema);

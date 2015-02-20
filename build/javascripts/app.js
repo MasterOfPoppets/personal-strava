@@ -14,70 +14,45 @@
       $stateProvider
       .state('authorise', {
         url: '/',
-        templateUrl: 'partials/authorise',
+        templateUrl: 'partials/oauth',
         controller: 'AuthoriseCtrl'
       })
       .state('exchange', {
         url: '/exchange?state&code',
-        controller: 'ExchangeCtrl',
         resolve: {
           code: ['$stateParams', function ($stateParams) {
             return $stateParams.code;
           }]
-        }
+        },
+        controller: 'ExchangeCtrl'
       })
       .state('dashboard', {
         abstract: true,
         templateUrl: 'partials/dashboard',
-        controller: 'DashboardCtrl'
+        controller: 'DashboardCtrl',
+        onEnter: function () {
+          console.log('entered dashboard abstract state'); 
+        }
       })
       .state('dashboard.userConfig', {
-        url: '/dashboard',
-        views: {
-          'menu': {
-            templateUrl: 'partials/menu'
-          },
-          'content': {
-            templateUrl: 'partials/userConfig',
-            controller: 'UserConfigCtrl'
-          }
-        }
+        url: '/user',
+        templateUrl: 'partials/userConfig',
+        controller: 'UserConfigCtrl'
       })
       .state('dashboard.activities', {
-        url: '/dashboard',
-        views: {
-          'menu': {
-            templateUrl: 'partials/menu'
-          },
-          'content': {
-            templateUrl: 'partials/activities',
-            controller: 'ActivitiesCtrl'
-          }
-        }
+        url: '/activities',
+        templateUrl: 'partials/activities',
+        controller: 'ActivitiesCtrl'
       })
       .state('dashboard.activity', {
         url: '/activities/:id',
-        views: {
-          'menu': {
-            templateUrl: 'partials/menu'
-          },
-          'content': {
-            templateUrl: 'partials/activity',
-            controller: 'ActivityCtrl'
-          }
-        }
+        templateUrl: 'partials/activity',
+        controller: 'ActivityCtrl'
       })
       .state('dashboard.segments', {
-        url: '/dashboard',
-        views: {
-          'menu': {
-            templateUrl: 'partials/menu'
-          },
-          'content': {
-            templateUrl: 'partials/segments',
-            controller: 'SegmentsCtrl'
-          }
-        }
+        url: '/segments',
+        templateUrl: 'partials/segments',
+        controller: 'SegmentsCtrl'
       });
     }
   ]);
