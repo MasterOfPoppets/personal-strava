@@ -1,22 +1,12 @@
 (function () {
   'use strict';
-  
+
   var db = require('../model/index');
-  
+
   module.exports = exports = new User();
-  
+
   function User() {}
-  
-  function summarise(user) {
-    return {
-      _id: user._id,
-      name: user.name,
-      profile: user.profile,
-      hrZones: user.hrZones,
-      hrZonesSet: user.hrZonesSet
-    };
-  }
-  
+
   User.prototype.createUser = function (stravaUserJson, callback) {
     db.User.create(
       {
@@ -28,51 +18,51 @@
       callback
     );
   };
-  
+
   User.prototype.findUserByAccessToken = function (accessToken, callback) {
     db.User.findOne(
       {
         accessToken: accessToken
-      }, 
+      },
       callback
     );
   };
-  
+
   // Hunt for the user based on input json. If one is found in the database
-  // just return that, otherwise its time to go and create a new entry for 
+  // just return that, otherwise its time to go and create a new entry for
   // the user in the database, returning it afterwards.
   User.prototype.registerUser = function (stravaUserJson, callback) {
     var summaryCallback = function (err, result) {
       if (err) {
         callback(err, null);
       } else {
-        callback(null, summarise(result));
+        callback(null, result);
       }
     }.bind(this);
-    
+
     this.findUserByAccessToken(
-      stravaUserJson.access_token, 
+      stravaUserJson.access_token,
       function (err, result) {
         if (err) callback(err, null);
         else {
           if (result === null) {
             this.createUser(stravaUserJson, summaryCallback);
           } else {
-            summaryCallback(null, result); 
+            summaryCallback(null, result);
           }
         }
       }.bind(this)
     );
   };
-  
+
   User.prototype.updateUser = function (id, hrZones, callback) {
     db.User.findOneAndUpdate(
       {
-        _id: id 
+        _id: id
       },
       {
-        hrZones: hrZones,
-        hrZonesSet: true
+        hr_zones: hrZones,
+        hr_zones_set: true
       },
       callback
     );

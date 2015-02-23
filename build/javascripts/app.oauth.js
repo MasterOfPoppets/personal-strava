@@ -1,8 +1,8 @@
 (function () {
   'use strict';
-  
+
   angular.module('gh.strava.oauth', [])
-  
+
   .controller('AuthoriseCtrl', [
     '$scope', '$http', '$window',
     function ($scope, $http, $window) {
@@ -13,13 +13,14 @@
       };
     }
   ])
-  
+
   .controller('ExchangeCtrl', [
     '$scope', '$http', 'code', 'UserFactory', '$state',
     function ($scope, $http, code, UserFactory, $state) {
       $http.get('/oauth/exchange?code=' + code).success(function (data) {
+        console.log(data);
         UserFactory.setUser(data);
-        
+
         if (data.hrZonesSet) {
           $state.go('dashboard.activities', {
             location: true,
@@ -33,5 +34,5 @@
         }
       });
     }
-  ]);  
+  ]);
 })();

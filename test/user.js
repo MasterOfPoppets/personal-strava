@@ -31,7 +31,7 @@ describe('User', function () {
       }
     );
   });
-  
+
   describe('createUser', function () {
    it('creates User from strava api payload', function (done) {
       User.createUser(testUserJson, function (err, result) {
@@ -44,7 +44,7 @@ describe('User', function () {
       });
     });
   });
-  
+
   describe('findUserByAccessToken', function () {
     it('retrieves User by accessToken', function (done) {
       User.findUserByAccessToken(testUser.accessToken, function (err, result) {
@@ -52,7 +52,7 @@ describe('User', function () {
         done();
       });
     });
-    
+
     it('retrieves no User by unmatched accessToken', function (done) {
       User.findUserByAccessToken('unmatched_access_token', function (err, result) {
         should.not.exist(result);
@@ -60,7 +60,7 @@ describe('User', function () {
       });
     });
   });
-  
+
   describe('registerUser', function () {
     var newUserJson = {
           access_token: 'new_access_token',
@@ -70,7 +70,7 @@ describe('User', function () {
             profile: 'https://test_image_url'
           }
         };
-    
+
     it('find User in database and return summary', function (done) {
       // register with testUserJson and test expected output
       User.registerUser(testUserJson, function (err, result) {
@@ -78,7 +78,7 @@ describe('User', function () {
         done();
       });
     });
-    
+
     it('creates new User in database and return summary', function (done) {
       // register with newUserJson and test expected output
       User.registerUser(newUserJson, function (err, result) {
@@ -89,7 +89,7 @@ describe('User', function () {
       });
     });
   });
-  
+
   describe('updateUser', function () {
     var hrZones = {
       z1: 100,
@@ -98,21 +98,21 @@ describe('User', function () {
       z4: 160,
       z5: 180
     };
-    
+
     it('updates the User with heart rate zones', function (done) {
-      testUser.hrZonesSet.should.be.false;
+      testUser.hr_zones_set.should.be.false;
       User.updateUser(testUser._id, hrZones, function (err, result) {
-        result.hrZones.should.have.deep.property('z1', hrZones.z1);
-        result.hrZones.should.have.deep.property('z2', hrZones.z2);
-        result.hrZones.should.have.deep.property('z3', hrZones.z3);
-        result.hrZones.should.have.deep.property('z4', hrZones.z4);
-        result.hrZones.should.have.deep.property('z5', hrZones.z5);
-        result.hrZonesSet.should.be.true;
+        result.hr_zones.should.have.deep.property('z1', hrZones.z1);
+        result.hr_zones.should.have.deep.property('z2', hrZones.z2);
+        result.hr_zones.should.have.deep.property('z3', hrZones.z3);
+        result.hr_zones.should.have.deep.property('z4', hrZones.z4);
+        result.hr_zones.should.have.deep.property('z5', hrZones.z5);
+        result.hr_zones_set.should.be.true;
       });
       done();
     });
   });
-    
+
   afterEach(function (done) {
     model.User.remove({}, function () {
       done();

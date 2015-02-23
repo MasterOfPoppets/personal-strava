@@ -2,7 +2,7 @@
   'use strict';
   module.exports = function (grunt) {
     // Project configuration.
-    grunt.initConfig({ 
+    grunt.initConfig({
       pkg: grunt.file.readJSON('package.json'),
       bower_concat: {
         all: {
@@ -12,16 +12,16 @@
             'jquery'
           ],
           mainFiles: {
-            'bootstrap': 'dist/css/bootstrap.css' 
+            'bootstrap': 'dist/css/bootstrap.css'
           }
         }
       },
-      uglify: { 
+      uglify: {
         options: {
           mangle: false
-        }, 
+        },
         my_target: {
-          files: { 
+          files: {
             'public/javascripts/stravadv.min.js': [
               'build/javascripts/**/*.js'
             ]
@@ -29,8 +29,14 @@
         }
       },
       watch: {
-        files: ['build/javascripts/**/*.js'],
-        tasks: ['uglify']
+        bower: {
+          files: ['bower_components/**'],
+          tasks: ['bower_concat']
+        },
+        build_js: {
+          files: ['build/javascripts/**/*.js'],
+          tasks: ['uglify']
+        }
       }
     });
 
@@ -39,7 +45,7 @@
 
     // Load the plugin that provides the "uglify" task.
     grunt.loadNpmTasks('grunt-contrib-uglify');
-    
+
     // Load the plugin that provides the "watch" task.
     grunt.loadNpmTasks('grunt-contrib-watch');
 

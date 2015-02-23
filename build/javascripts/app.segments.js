@@ -1,10 +1,10 @@
 (function () {
   'use strict';
-  
+
   angular.module('gh.strava.segments', [])
-  
+
   .controller('SegmentsCtrl', [
-    '$scope', '$http', 
+    '$scope', '$http',
     function ($scope, $http) {
       $scope.model = {};
 

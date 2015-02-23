@@ -1,10 +1,10 @@
 (function () {
   'use strict';
-  
+
   angular.module('gh.strava.activities', [])
-  
+
   .controller('ActivitiesCtrl', [
-    '$scope', '$http', 
+    '$scope', '$http',
     function ($scope, $http) {
       $scope.model = {};
 
@@ -13,7 +13,7 @@
       });
     }
   ])
-  
+
   .controller('ActivityCtrl', [
     '$scope', '$http', '$stateParams',
     function ($scope, $http, $stateParams) {
@@ -21,7 +21,7 @@
         method: 'GET',
         url: '/activities/' + $stateParams.id
       };
-      
+
       $http(httpGetObject).success(function (data) {
         console.log(data);
       });

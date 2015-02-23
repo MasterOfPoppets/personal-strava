@@ -1,11 +1,11 @@
 (function () {
   'use strict';
-  
+
   angular.module('gh.strava', [
     'ui.router', 'gh.strava.user', 'gh.strava.oauth', 'gh.strava.dashboard',
     'gh.strava.activities', 'gh.strava.segments'
   ])
-  
+
   .config([
     '$stateProvider', '$urlRouterProvider', '$locationProvider',
     function ($stateProvider, $urlRouterProvider, $locationProvider) {
@@ -29,10 +29,7 @@
       .state('dashboard', {
         abstract: true,
         templateUrl: 'partials/dashboard',
-        controller: 'DashboardCtrl',
-        onEnter: function () {
-          console.log('entered dashboard abstract state'); 
-        }
+        controller: 'DashboardCtrl'
       })
       .state('dashboard.userConfig', {
         url: '/user',
