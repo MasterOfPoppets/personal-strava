@@ -7,6 +7,7 @@ describe('User', function () {
   var testUserJson = {
         access_token: 'test_access_token',
         athlete: {
+          id: '12345',
           firstname: 'Testy',
           lastname: 'McTest',
           profile: 'https://test_image_url'
@@ -36,6 +37,7 @@ describe('User', function () {
    it('creates User from strava api payload', function (done) {
       User.createUser(testUserJson, function (err, result) {
         result.accessToken.should.equal(testUserJson.access_token);
+        result.athleteId.should.equal(testUserJson.athlete.id);
         result.name.should.equal(
           testUserJson.athlete.firstname + ' ' + testUserJson.athlete.lastname
         );

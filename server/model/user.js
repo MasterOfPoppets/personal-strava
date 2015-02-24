@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 
 var userSchema = mongoose.Schema({
   accessToken: String,
+  athleteId: String,
   firstname: String,
   lastname: String,
   profile: String,

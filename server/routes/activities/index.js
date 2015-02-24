@@ -1,11 +1,11 @@
 (function () {
   'use strict';
-     
+
   var strava = require('strava-v3'),
       express = require('express'),
       router = express.Router(),
       Segment = require('../../lib/segment');
-  
+
   router.get('/', function (req, res) {
     strava.athlete.listActivities(
       {},
@@ -19,7 +19,7 @@
       }
     );
   });
-  
+
   router.get('/:activityId', function (req, res) {
     strava.activities.get(
       {
@@ -32,6 +32,6 @@
       }
     );
   });
-  
+
   module.exports = router;
 }());

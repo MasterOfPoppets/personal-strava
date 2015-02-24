@@ -11,6 +11,7 @@
     db.User.create(
       {
         accessToken: stravaUserJson.access_token,
+        athleteId: stravaUserJson.athlete.id,
         firstname: stravaUserJson.athlete.firstname,
         lastname: stravaUserJson.athlete.lastname,
         profile: stravaUserJson.athlete.profile

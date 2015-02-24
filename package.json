@@ -15,7 +15,7 @@
     "jade": "*",
     "mongoose": "3.8.*",
     "nib": "*",
-    "strava-v3": "^1.5.2",
+    "strava-v3": "^1.6.0",
     "stylus": "*"
   },
   "devDependencies": {
